@@ -1,0 +1,39 @@
+h1{
+    background: #eaeaea;
+    padding: 5px;
+    color: #353535;
+}
+h2{
+    background: #eaeaea;
+    padding: 5px;
+    color: #353535;
+}
+.form{
+    text-align: center;
+    width: fit-content;
+    min-width: 80%;
+    margin: 50px auto;
+    padding: 30px;
+    background: white;
+    box-shadow: 0px 0px 10px 0px lightgray;
+}
+.signIn{
+    width: fit-content;
+    min-width: 30%;
+}
+.form>form, .form>p{
+    width: 100%;
+    margin: 10px auto;
+}
+.form>p{
+    width: fit-content;
+    margin-top: 20px;
+    font-size: 15px; 
+    color: gray;
+}
+.changeFormBtn{
+    text-decoration: underline;
+    font-weight: bold;
+    cursor: pointer;
+    color:#3f51b5
+}
