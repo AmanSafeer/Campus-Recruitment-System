@@ -13,7 +13,7 @@ export function signUpUser(uid,user){
 }
 export function signInUser(user,history,sign){
     return (dispatch)=>{
-        ref.child(user.uid).on('value',snap =>{
+        ref.child(user.uid).once('value',snap =>{
             const userData = snap.val();
             dispatch({type:actionTypes.SIGNIN, payload:userData, userId:user.uid})
             if(sign == true){

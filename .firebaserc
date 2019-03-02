@@ -1,5 +1,6 @@
 {
   "projects": {
-    "y": "campus-recruitment-system-web"
+    "y": "campus-recruitment-system-web",
+    "default": "campus-recruitment-system-web"
   }
 }
