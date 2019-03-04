@@ -81,13 +81,12 @@ class CustomizedDialogDemo extends React.Component {
             {this.props.updation ?
             <div>
               <Dialog
-              style={{minWidth:"50%"}}
               onClose={this.handleClose}
               aria-labelledby="customized-dialog-title"
               open={this.state.open}
               >
-              <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
-                Profile
+              <DialogTitle  id="customized-dialog-title" onClose={this.handleClose}>
+                <div title={"Profile"} style={{minWidth:"50%", maxWidth:"80%", overflow:"hidden", textOverflow:"ellipsis"}}>Profile</div>
               </DialogTitle>
               <DialogContent>
                 <Typography gutterBottom>Name: {this.props.updation.name}</Typography>
@@ -110,7 +109,7 @@ class CustomizedDialogDemo extends React.Component {
           </div>:
         <div>
            <Button style={{width:"max-content"}} variant="outlined" color="primary" onClick={this.handleClickOpen}>
-              {this.props.name}
+            {this.props.name}
             </Button>
           <Dialog
             onClose={this.handleClose}
@@ -118,7 +117,7 @@ class CustomizedDialogDemo extends React.Component {
             open={this.state.open}
           >
             <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
-              {this.props.title}
+            <div title={this.props.title} style={{minWidth:"50%", maxWidth:"80%", overflow:"hidden", textOverflow:"ellipsis"}}>{this.props.title}</div>
             </DialogTitle>
             <DialogContent>
               <Typography gutterBottom>

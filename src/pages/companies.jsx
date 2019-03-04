@@ -13,14 +13,14 @@ import {signInUser,getCompanies,blockUser,unblockUser,deleteJob} from '../store/
 import Dialog from '../components/dialogBox'
 
 const styles =(theme)=>({
- 
+  red:{
+    backgroundColor:"rgba(247,0,0,0.5)"
+  },
 });
 
 
 class Company extends Component {
-  constructor(props){
-    super(props)
-  }
+ 
   block=(id)=>{
     this.props.blockUser(id)
   }
@@ -43,7 +43,6 @@ class Company extends Component {
   }
 
   render() {
-    const {classes}=this.props
     return (
       ( this.props.profile && (this.props.profile.userType === "admin" ||  this.props.profile.userType === "student")) &&
       <div>
@@ -69,7 +68,10 @@ class Company extends Component {
                 {this.props.companies.map((val,ind)=>
                 <TableRow key={ind}>
                   <TableCell>{ind+1}</TableCell>
+                  {val.available ?
                   <TableCell>{val.name}</TableCell>
+                  :
+                  <TableCell style={{backgroundColor:"rgba(247,0,0,0.4)"}}>{val.name}</TableCell>}
                   <TableCell>{val.email}</TableCell><TableCell>{val.job}</TableCell>
                   <TableCell>{val.qualificationReq}</TableCell><TableCell>{val.salary}</TableCell>
                   <TableCell>
@@ -90,6 +92,7 @@ class Company extends Component {
             <TableHead >
               <TableRow>
               <TableCell>Id</TableCell>
+              <TableCell>Name</TableCell>
                 <TableCell>Email</TableCell><TableCell>Job</TableCell>
                 <TableCell>Qualification Required</TableCell><TableCell>Salary</TableCell>
                 <TableCell>Job Details</TableCell>

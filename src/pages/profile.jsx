@@ -18,6 +18,10 @@ import {signInUser,request} from '../store/action/action'
 
 
 const styles =(theme)=>({
+  form:{
+    width:"100%",
+    overflow:"hidden"
+  },
   inputField:{
     width:"80%",
   },
@@ -34,15 +38,18 @@ class Profile extends Component {
       percentage:'',
       gender:'',
       description:'',
+      oldProfile:null,
+      error:""
     }
   }
   changeHandler=(event)=>{
     this.setState({
       [event.target.name]:event.target.value,
+      error:''
     });
   }
-  setData=()=>{
-    const {name,qualification,skill,percentage,gender,description}=this.props.profile
+  setData=(nextProps)=>{
+    const {name,qualification,skill,percentage,gender,description}=nextProps.profile
     const profile={name,qualification,skill,percentage,gender,description}
     this.setState({
       name:name,
@@ -57,21 +64,32 @@ class Profile extends Component {
   updateRequest=(event,id)=>{
     event.preventDefault()
     const {name,qualification,skill,percentage,gender,description}=this.state
+    const old=this.state.oldProfile
+  
+    if(name === old.name && qualification === old.qualification && skill === old.skill && percentage === old.percentage && gender === old.gender && description === old.description){
+      this.setState({
+        error:'no changes in profile'
+      })
+      return;
+    }
+
     if(percentage > 100){
       this.setState({
         error:'Percentage should below from 100'
       })
       return;
     }
-    const profile={name,qualification,skill,percentage,gender,description}
+   
+    const profile={name,qualification,skill,percentage,gender,description} 
     this.props.request(id,profile)
 
   }
   componentDidUpdate(prevProps) {
     if (this.props.profile !== prevProps.profile) {
-      this.setData();
+        this.setData(this.props);
     }
   }
+  
   componentDidMount(){
     firebase.auth().onAuthStateChanged((user)=>{
       if(user){
@@ -86,8 +104,9 @@ class Profile extends Component {
       <div>
         <Header history={this.props.history} value={1}/>
        <h1>Profile</h1>
+       <p style={{color:"red"}}>{this.state.error}</p>
        {this.props.profile.available ?
-        <form >
+        <form style={styles.form}>
             <TextField className={classes.inputField} label="Name"  margin="normal"  type="text" name="name" value={this.state.name} onChange={this.changeHandler} required/><br/>
                     <FormControl required className={classes.inputField}>
                       <InputLabel classes={{ root: classes.cssLabel,focused: classes.cssFocused, }}>Qualification</InputLabel>
@@ -148,7 +167,7 @@ function mapStateToProps(state){
   function mapDispatchToProps(dispatch){
     return {
       request:(id,profile)=>dispatch(request(id,profile)),
-      signInUser: (user,history)=> dispatch(signInUser(user,history))
+      signInUser: (user,history)=> dispatch(signInUser(user,history)),
     }
   }
 export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Profile));

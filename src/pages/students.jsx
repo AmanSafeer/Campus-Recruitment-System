@@ -18,9 +18,6 @@ const styles =(theme)=>({
 
 
 class Student extends Component {
-  constructor(props){
-    super(props)
-  }
 
   update=(id)=>{
     this.props.update(id)
@@ -44,7 +41,7 @@ class Student extends Component {
     })
   }
   render() {
-      const {classes}=this.props
+    
     return (
       ( this.props.profile && (this.props.profile.userType === "admin" ||  this.props.profile.userType === "company")) &&
       <div>
@@ -71,7 +68,10 @@ class Student extends Component {
                 {this.props.students.map((val,ind)=>  
                   <TableRow key={ind}>
                   <TableCell>{ind+1}</TableCell>
-                    <TableCell>{val.name}</TableCell>
+                  {val.available ?
+                  <TableCell>{val.name}</TableCell>
+                  :
+                  <TableCell style={{backgroundColor:"rgba(247,0,0,0.4)"}}>{val.name}</TableCell>}
                     <TableCell>{val.email}</TableCell><TableCell>{val.gender}</TableCell>
                     <TableCell>{val.qualification}</TableCell><TableCell>{val.percentage}%</TableCell><TableCell>{val.skill}</TableCell>
                     <TableCell>

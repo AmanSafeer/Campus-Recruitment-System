@@ -13,10 +13,10 @@ export function signUpUser(uid,user){
 }
 export function signInUser(user,history,sign){
     return (dispatch)=>{
+        if(sign){
         ref.child(user.uid).once('value',snap =>{
             const userData = snap.val();
             dispatch({type:actionTypes.SIGNIN, payload:userData, userId:user.uid})
-            if(sign == true){
                 if(userData.userType === "admin"){
                 history.replace('/companies');
                 }
@@ -26,11 +26,18 @@ export function signInUser(user,history,sign){
                 else{
                 history.replace('/job');
                 }
-            }
-            dispatch({type:actionTypes.SIGNIN_LOADER_CLOSE})
-          })
+                dispatch({type:actionTypes.SIGNIN_LOADER_CLOSE})
+            })
+        }
+        else{
+            ref.child(user.uid).on('value',snap =>{
+                const userData = snap.val();
+                dispatch({type:actionTypes.SIGNIN, payload:userData, userId:user.uid})   
+            })  
+        }
     }
 }
+
 export function signInLoaderOpen(){
     return (dispatch)=>{
        dispatch({type:actionTypes.SIGNIN_LOADER_OPEN})

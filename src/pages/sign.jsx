@@ -102,11 +102,12 @@ signUp=(event)=>{
   }
 
   this.props.signInLoaderOpen()
+  var user;
   if(userType === "student"){
-    var user={name,email,userType,qualification,percentage,skill,description,gender,available,request};
+    user={name,email,userType,qualification,percentage,skill,description,gender,available,request};
   }
   else{
-    var user={name,email,userType,available};
+    user={name,email,userType,available};
   }
   firebase.auth().createUserWithEmailAndPassword(email,password)
   .then(res=>{
