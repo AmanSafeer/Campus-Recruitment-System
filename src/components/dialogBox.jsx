@@ -56,7 +56,7 @@ class CustomizedDialogDemo extends React.Component {
   };
 
   handleClickOpen = () => {
-  {this.props.requestedData && this.props.requestedData()}
+    { this.props.requestedData && this.props.requestedData() }
     this.setState({
       open: true,
     });
@@ -73,64 +73,64 @@ class CustomizedDialogDemo extends React.Component {
   render() {
     return (
       <div>
-        {this.props.update ? 
+        {this.props.update ?
           <div>
-            <Button style={{width:"max-content"}} variant="outlined" color="secondary" onClick={this.handleClickOpen}>
+            <Button style={{ width: "max-content" }} variant="outlined" color="secondary" onClick={this.handleClickOpen}>
               {this.props.name}
             </Button>
             {this.props.updation ?
-            <div>
-              <Dialog
+              <div>
+                <Dialog
+                  onClose={this.handleClose}
+                  aria-labelledby="customized-dialog-title"
+                  open={this.state.open}
+                >
+                  <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
+                    <div title={"Profile"} style={{ minWidth: "50%", maxWidth: "80%", overflow: "hidden", textOverflow: "ellipsis" }}>Profile</div>
+                  </DialogTitle>
+                  <DialogContent>
+                    <Typography gutterBottom>Name: {this.props.updation.name}</Typography>
+                    <Typography gutterBottom>Gender: {this.props.updation.gender}</Typography>
+                    <Typography gutterBottom>Qualification: {this.props.updation.qualification}</Typography>
+                    <Typography gutterBottom>Percentage: {this.props.updation.percentage}</Typography>
+                    <Typography gutterBottom>Skill: {this.props.updation.skill}</Typography>
+                    <Typography gutterBottom>Description:{this.props.updation.description}</Typography>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={this.handleClose} color="primary">
+                      Close
+                </Button>
+                    <Button onClick={this.update} color="secondary">
+                      Update
+                </Button>
+                  </DialogActions>
+                </Dialog>
+              </div> : <div></div>}
+          </div> :
+          <div>
+            <Button style={{ width: "max-content" }} variant="outlined" color="primary" onClick={this.handleClickOpen}>
+              {this.props.name}
+            </Button>
+            <Dialog
               onClose={this.handleClose}
               aria-labelledby="customized-dialog-title"
               open={this.state.open}
-              >
-              <DialogTitle  id="customized-dialog-title" onClose={this.handleClose}>
-                <div title={"Profile"} style={{minWidth:"50%", maxWidth:"80%", overflow:"hidden", textOverflow:"ellipsis"}}>Profile</div>
+            >
+              <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
+                <div title={this.props.title} style={{ minWidth: "50%", maxWidth: "80%", overflow: "hidden", textOverflow: "ellipsis" }}>{this.props.title}</div>
               </DialogTitle>
               <DialogContent>
-                <Typography gutterBottom>Name: {this.props.updation.name}</Typography>
-                <Typography gutterBottom>Gender: {this.props.updation.gender}</Typography>
-                <Typography gutterBottom>Qualification: {this.props.updation.qualification}</Typography>
-                <Typography gutterBottom>Percentage: {this.props.updation.percentage}</Typography>
-                <Typography gutterBottom>Skill: {this.props.updation.skill}</Typography>
-                <Typography gutterBottom>Description:{this.props.updation.description}</Typography>
+                <Typography gutterBottom>
+                  {this.props.details}
+                </Typography>
               </DialogContent>
               <DialogActions>
                 <Button onClick={this.handleClose} color="primary">
                   Close
-                </Button>
-                <Button onClick={this.update} color="secondary">
-                  Update
-                </Button>
-              </DialogActions>
-              </Dialog>
-            </div>:<div></div>}
-          </div>:
-        <div>
-           <Button style={{width:"max-content"}} variant="outlined" color="primary" onClick={this.handleClickOpen}>
-            {this.props.name}
-            </Button>
-          <Dialog
-            onClose={this.handleClose}
-            aria-labelledby="customized-dialog-title"
-            open={this.state.open}
-          >
-            <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
-            <div title={this.props.title} style={{minWidth:"50%", maxWidth:"80%", overflow:"hidden", textOverflow:"ellipsis"}}>{this.props.title}</div>
-            </DialogTitle>
-            <DialogContent>
-              <Typography gutterBottom>
-                  {this.props.details}
-              </Typography>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={this.handleClose} color="primary">
-                Close
               </Button>
-            </DialogActions>
-          </Dialog>
-        </div>}
+              </DialogActions>
+            </Dialog>
+          </div>}
       </div>
     );
   }

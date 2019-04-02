@@ -1,79 +1,79 @@
 import actionTypes from '../constants/constant'
 
 const initialState = {
-    menu:false,
-    profile:null,
-    userId:null,
-    updation:null,
-    signInLoader:false,
+    menu: false,
+    profile: null,
+    userId: null,
+    updation: null,
+    signInLoader: false,
 
-    students:[],
-    companies:[]
+    students: [],
+    companies: []
 };
 
-export default (state = initialState , action)=>{
-    switch(action.type){
-        case actionTypes.SIGNIN:{
-            return{
+export default (state = initialState, action) => {
+    switch (action.type) {
+        case actionTypes.SIGNIN: {
+            return {
                 ...state,
-                profile:action.payload,
-                userId:action.userId,
-                menu:true
+                profile: action.payload,
+                userId: action.userId,
+                menu: true
             }
         }
-        case actionTypes.SIGNOUT:{
-            return{
+        case actionTypes.SIGNOUT: {
+            return {
                 ...state,
-                profile:null,
-                userId:null,
-                menu:false,
+                profile: null,
+                userId: null,
+                menu: false,
             }
         }
-        case actionTypes.SIGNIN_LOADER_OPEN:{
-            return{
+        case actionTypes.SIGNIN_LOADER_OPEN: {
+            return {
                 ...state,
-                signInLoader:true,
+                signInLoader: true,
             }
         }
-        case actionTypes.SIGNIN_LOADER_CLOSE:{
-            return{
+        case actionTypes.SIGNIN_LOADER_CLOSE: {
+            return {
                 ...state,
-                signInLoader:false,
+                signInLoader: false,
             }
         }
-        case actionTypes.GETSTUDENTS:{
-            return{
+        case actionTypes.GETSTUDENTS: {
+            return {
                 ...state,
-                students:action.payload
+                students: action.payload
             }
         }
-        case actionTypes.GETCOMPANIES:{
-            return{
+        case actionTypes.GETCOMPANIES: {
+            return {
                 ...state,
-                companies:action.payload
+                companies: action.payload
             }
         }
-        case actionTypes.REQUEST:{
-            return{
+        case actionTypes.REQUEST: {
+            return {
                 ...state,
-                profile:action.payload,
-                
+                profile: action.payload,
+
             }
         }
-        case actionTypes.REQUESTED_DATA:{
-            return{
+        case actionTypes.REQUESTED_DATA: {
+            return {
                 ...state,
-                updation:action.payload,
-                
+                updation: action.payload,
+
             }
         }
-        case actionTypes.UPDATED:{
-            return{
+        case actionTypes.UPDATED: {
+            return {
                 ...state,
-                profile:action.payload,
-                
+                profile: action.payload,
+
             }
         }
-        default: return state;            
+        default: return state;
     }
 }
