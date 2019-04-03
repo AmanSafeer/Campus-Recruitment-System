@@ -182,8 +182,8 @@ class Sign extends Component {
                   <FormControlLabel value="company" control={<Radio color="primary" required={true} />} label="Company" />
                 </RadioGroup>
               </FormControl><br />
-              <TextField className={classes.inputField} label="Name" margin="normal" type="text" name="name" value={this.state.name} onChange={this.changeHandler} required /><br />
-              <TextField className={classes.inputField} label="Email" margin="normal" type="email" name="email" value={this.state.email} onChange={this.changeHandler} required /><br />
+              <TextField className={classes.inputField} label="Name" margin="normal" type="text" name="name" value={this.state.name} onChange={this.changeHandler} maxLength="10" required /><br />
+              <TextField className={classes.inputField} label="Email" margin="normal" type="email" name="email" value={this.state.email} onChange={this.changeHandler} maxLength="30" required /><br />
               <TextField className={classes.inputField} label="Password" margin="normal" type="password" name="password" value={this.state.password} onChange={this.changeHandler} required /><br />
               {(this.state.userType === "student") &&
                 <span>

@@ -9,7 +9,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Header from '../components/header'
-import { signInUser, getCompanies, blockUser, unblockUser, deleteJob } from '../store/action/action'
+import { signInUser, getCompanies, getCompaniesOnly, blockUser, unblockUser, deleteJob } from '../store/action/action'
 import Dialog from '../components/dialogBox'
 
 const styles = (theme) => ({
@@ -32,6 +32,7 @@ class Company extends Component {
   }
   getData = () => {
     this.props.getCompanies()
+    this.props.getCompaniesOnly()
   }
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
@@ -43,6 +44,8 @@ class Company extends Component {
   }
 
   render() {
+
+    console.log(this.props.companiesOnly)
     return (
       (this.props.profile && (this.props.profile.userType === "admin" || this.props.profile.userType === "student")) &&
       <div>
@@ -129,12 +132,14 @@ class Company extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.root.profile,
-    companies: state.root.companies
+    companies: state.root.companies,
+    companiesOnly: state.root.companiesOnly
   }
 }
 function mapDispatchToProps(dispatch) {
   return {
     getCompanies: () => dispatch(getCompanies()),
+    getCompaniesOnly: () => dispatch(getCompaniesOnly()),
     blockUser: (id) => dispatch(blockUser(id)),
     unblockUser: (id) => dispatch(unblockUser(id)),
     signInUser: (user, history) => dispatch(signInUser(user, history)),

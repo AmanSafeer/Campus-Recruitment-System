@@ -113,7 +113,7 @@ class Profile extends Component {
         <p style={{ color: "red" }}>{this.state.error}</p>
         {this.props.profile.available ?
           <form style={styles.form}>
-            <TextField className={classes.inputField} label="Name" margin="normal" type="text" name="name" value={this.state.name} onChange={this.changeHandler} required /><br />
+            <TextField className={classes.inputField} label="Name" margin="normal" type="text" name="name" value={this.state.name} maxLength="10" onChange={this.changeHandler} required /><br />
             <FormControl required className={classes.inputField}>
               <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused, }}>Qualification</InputLabel>
               <Select input={<Input classes={{ underline: classes.cssUnderline, }} />} style={{ textAlign: 'left' }} value={this.state.qualification} onChange={this.changeHandler} inputProps={{ name: 'qualification' }}>

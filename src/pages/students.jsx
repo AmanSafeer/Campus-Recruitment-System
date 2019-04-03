@@ -60,7 +60,7 @@ class Student extends Component {
                         <TableCell>Email</TableCell><TableCell>Gender</TableCell>
                         <TableCell>Qualification</TableCell><TableCell>Pecentage</TableCell>
                         <TableCell>Skill</TableCell>
-                        <TableCell>Description</TableCell>
+                        <TableCell>Details</TableCell>
                         <TableCell>Admin Action</TableCell>
                       </TableRow>
                     </TableHead>
@@ -75,7 +75,7 @@ class Student extends Component {
                           <TableCell>{val.email}</TableCell><TableCell>{val.gender}</TableCell>
                           <TableCell>{val.qualification}</TableCell><TableCell>{val.percentage}%</TableCell><TableCell>{val.skill}</TableCell>
                           <TableCell>
-                            <Dialog name="Description" title={val.skill} details={val.description} />
+                            <Dialog name="Details" title={val.name} email={val.email} gender={val.gender} qualification={val.qualification} percentage={val.percentage} details={val.description} />
                           </TableCell>
                           <TableCell>
                             {val.request && <Dialog name="View Update" updation={this.props.updation} requestedData={() => this.props.requestedData(val.id)} action={() => this.update(val.id)} update={true} />}
@@ -110,7 +110,7 @@ class Student extends Component {
                           <TableCell>{val.email}</TableCell><TableCell>{val.gender}</TableCell>
                           <TableCell>{val.qualification}</TableCell><TableCell>{val.percentage}%</TableCell><TableCell>{val.skill}</TableCell>
                           <TableCell>
-                            <Dialog name="Description" title={val.skill} details={val.description} />
+                            <Dialog name="Details" title={val.name} email={val.email} gender={val.gender} qualification={val.qualification} percentage={val.percentage} />
                           </TableCell>
                         </TableRow>
                       )}

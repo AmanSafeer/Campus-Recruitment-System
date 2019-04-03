@@ -8,7 +8,8 @@ const initialState = {
     signInLoader: false,
 
     students: [],
-    companies: []
+    companies: [],
+    companiesOnly:[],
 };
 
 export default (state = initialState, action) => {
@@ -51,6 +52,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 companies: action.payload
+            }
+        }
+        case actionTypes.GETCOMPANIESONLY: {
+            return {
+                ...state,
+                companiesOnly: action.payload
             }
         }
         case actionTypes.REQUEST: {

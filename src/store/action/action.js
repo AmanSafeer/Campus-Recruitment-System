@@ -109,6 +109,23 @@ export function getCompanies() {
         })
     }
 }
+export function getCompaniesOnly() {
+    return (dispatch) => {
+        ref.on("value", snap => {
+            const data = snap.val();
+            const userArr = []
+            if (data) {
+                for (var key in data) {
+                    const user = data[key]
+                    if (user.userType === "company") {
+                       console.log(user)
+                    } 
+                }
+            }
+            dispatch({ type: actionTypes.GETCOMPANIESONLY, payload: userArr })
+        })
+    }
+}
 
 export function request(id, profile) {
     return (dispatch) => {
