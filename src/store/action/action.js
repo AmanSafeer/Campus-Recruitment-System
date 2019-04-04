@@ -118,6 +118,7 @@ export function getCompaniesOnly() {
                 for (var key in data) {
                     const user = data[key]
                     if (user.userType === "company") {
+                        userArr.push(user)
                        console.log(user)
                     } 
                 }

@@ -124,6 +124,7 @@ class Profile extends Component {
                 <MenuItem value="Intermidiate">Intermidiate</MenuItem>
                 <MenuItem value="Gradutaion">Gradutaion</MenuItem>
                 <MenuItem value="Master">Master</MenuItem>
+                <MenuItem value="Phd">Phd</MenuItem>
               </Select>
             </FormControl><br />
 

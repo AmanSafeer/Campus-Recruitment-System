@@ -110,7 +110,7 @@ class Job extends Component {
                 </Select>
               </FormControl><br />
 
-              <TextField className={classes.inputField} label="Salary" margin="normal" type="text" name="salary" value={this.state.salary} onChange={this.changeHandler} required /><br />
+              <TextField className={classes.inputField} label="Salary" margin="normal" type="text" name="salary" value={this.state.salary} onChange={this.changeHandler} inputProps={{ maxLength:30 }} required /><br />
               <TextField className={classes.inputField} label="Job Details" margin="normal" type="text" name="jobDetails" value={this.state.jobDetails} onChange={this.changeHandler} multiline rowsMax="10" required /><br />
               <Button variant="contained" color="primary" type="submit" value="submit">Post</Button>
             </form>

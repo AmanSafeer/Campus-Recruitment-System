@@ -94,22 +94,21 @@ class Sign extends Component {
     event.preventDefault()
     const { name, email, password, userType, qualification, percentage, skill, description, gender, available, request } = this.state;
 
-    if (percentage > 100) {
-      this.setState({
-        error: 'Percentage should below from 100'
-      })
-      return;
-    }
-    else if (percentage < 40) {
-      this.setState({
-        error: 'Percentage should above from 40'
-      })
-      return;
-    }
-
     this.props.signInLoaderOpen()
     var user;
     if (userType === "student") {
+      if (percentage > 100) {
+        this.setState({
+          error: 'Percentage should below from 100'
+        })
+        return;
+      }
+      else if (percentage < 40) {
+        this.setState({
+          error: 'Percentage should above from 40'
+        })
+        return;
+      }
       user = { name, email, userType, qualification, percentage, skill, description, gender, available, request };
     }
     else {
@@ -175,15 +174,14 @@ class Sign extends Component {
           <div className="form">
             <form onSubmit={this.signUp}>
               <h2>Registration</h2>
-              <p style={{ color: "red" }}>{this.state.error}</p>
               <FormControl component="fieldset" margin="normal">
                 <RadioGroup style={{ flexDirection: 'row' }} name="userType" value={this.state.userType} onChange={this.changeHandler}>
                   <FormControlLabel value="student" control={<Radio color="primary" required={true} />} label="Student" />
                   <FormControlLabel value="company" control={<Radio color="primary" required={true} />} label="Company" />
                 </RadioGroup>
               </FormControl><br />
-              <TextField className={classes.inputField} label="Name" margin="normal" type="text" name="name" value={this.state.name} onChange={this.changeHandler} maxLength="10" required /><br />
-              <TextField className={classes.inputField} label="Email" margin="normal" type="email" name="email" value={this.state.email} onChange={this.changeHandler} maxLength="30" required /><br />
+              <TextField className={classes.inputField} label="Name" margin="normal" type="text" name="name" value={this.state.name} onChange={this.changeHandler} inputProps={{ maxLength: 15 }} required /><br />
+              <TextField className={classes.inputField} label="Email" margin="normal" type="email" name="email" value={this.state.email} onChange={this.changeHandler} inputProps={{ maxLength: 40 }} required /><br />
               <TextField className={classes.inputField} label="Password" margin="normal" type="password" name="password" value={this.state.password} onChange={this.changeHandler} required /><br />
               {(this.state.userType === "student") &&
                 <span>
@@ -197,6 +195,7 @@ class Sign extends Component {
                       <MenuItem value="Intermidiate">Intermidiate</MenuItem>
                       <MenuItem value="Gradutaion">Gradutaion</MenuItem>
                       <MenuItem value="Master">Master</MenuItem>
+                      <MenuItem value="Phd">Phd</MenuItem>
                     </Select>
                   </FormControl><br />
 
@@ -226,6 +225,7 @@ class Sign extends Component {
                   </FormControl><br />
                 </span>
               }
+              <p style={{ color: "red" }}>{this.state.error}</p>
               {this.props.signInLoader ?
                 <Loader /> :
                 <Button variant="contained" color="primary" type="submit" value="submit">Sign Up</Button>}

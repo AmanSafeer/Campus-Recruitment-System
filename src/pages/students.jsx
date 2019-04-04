@@ -13,7 +13,9 @@ import { signInUser, getStudents, blockUser, unblockUser, update, requestedData 
 import Dialog from '../components/dialogBox'
 
 const styles = (theme) => ({
-
+  tableWidth:{
+    width:"100%"
+  }
 });
 
 
@@ -41,7 +43,7 @@ class Student extends Component {
     })
   }
   render() {
-
+    const { classes } = this.props
     return (
       (this.props.profile && (this.props.profile.userType === "admin" || this.props.profile.userType === "company")) &&
       <div>
@@ -52,37 +54,38 @@ class Student extends Component {
             {this.props.students.length > 0 ?
               <div style={{ overflow: "auto" }}>
                 {this.props.profile.userType === "admin" ?
-                  <Table>
+                  <Table className={classes.tableWidth}>
                     <TableHead >
                       <TableRow>
                         <TableCell>Id</TableCell>
                         <TableCell>Name</TableCell>
-                        <TableCell>Email</TableCell><TableCell>Gender</TableCell>
-                        <TableCell>Qualification</TableCell><TableCell>Pecentage</TableCell>
                         <TableCell>Skill</TableCell>
                         <TableCell>Details</TableCell>
-                        <TableCell>Admin Action</TableCell>
+                        <TableCell>Updation</TableCell>
+                        <TableCell>Action</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {this.props.students.map((val, ind) =>
                         <TableRow key={ind}>
                           <TableCell>{ind + 1}</TableCell>
-                          {val.available ?
                             <TableCell>{val.name}</TableCell>
-                            :
-                            <TableCell style={{ backgroundColor: "rgba(247,0,0,0.4)" }}>{val.name}</TableCell>}
-                          <TableCell>{val.email}</TableCell><TableCell>{val.gender}</TableCell>
-                          <TableCell>{val.qualification}</TableCell><TableCell>{val.percentage}%</TableCell><TableCell>{val.skill}</TableCell>
+                          <TableCell>{val.skill}</TableCell>
                           <TableCell>
-                            <Dialog name="Details" title={val.name} email={val.email} gender={val.gender} qualification={val.qualification} percentage={val.percentage} details={val.description} />
+                            <Dialog name="Details" type="student" title={val.name} email={val.email} gender={val.gender} qualification={val.qualification} percentage={val.percentage} details={val.description} skill={val.skill} />
                           </TableCell>
                           <TableCell>
-                            {val.request && <Dialog name="View Update" updation={this.props.updation} requestedData={() => this.props.requestedData(val.id)} action={() => this.update(val.id)} update={true} />}
+                            {val.request ?
+                              <Dialog name="View Update" updation={this.props.updation} requestedData={() => this.props.requestedData(val.id)} action={() => this.update(val.id)} update={true} /> :
+                              <Button variant="outlined" disabled >View Update</Button>
+                            }
+                          </TableCell>
+                          <TableCell>
                             {val.available ?
                               <Button style={{ width: "max-content" }} variant="contained" color="secondary" onClick={() => this.block(val.id)}>Block Student</Button> :
                               <Button style={{ backgroundColor: "green", width: "max-content" }} variant="contained" color="secondary" onClick={() => this.unblock(val.id)}>Unblock Student</Button>}
                           </TableCell>
+                          
                         </TableRow>
 
                       )}
@@ -90,15 +93,13 @@ class Student extends Component {
                   </Table>
                   :
 
-                  <Table>
+                  <Table className={classes.tableWidth}>
                     <TableHead >
                       <TableRow>
                         <TableCell>Id</TableCell>
                         <TableCell>Name</TableCell>
-                        <TableCell>Email</TableCell><TableCell>Gender</TableCell>
-                        <TableCell>Qualification</TableCell><TableCell>Pecentage</TableCell>
                         <TableCell>Skill</TableCell>
-                        <TableCell>Description</TableCell>
+                        <TableCell>Detials</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -107,10 +108,9 @@ class Student extends Component {
                         <TableRow key={ind}>
                           <TableCell>{ind + 1}</TableCell>
                           <TableCell>{val.name}</TableCell>
-                          <TableCell>{val.email}</TableCell><TableCell>{val.gender}</TableCell>
-                          <TableCell>{val.qualification}</TableCell><TableCell>{val.percentage}%</TableCell><TableCell>{val.skill}</TableCell>
+                          <TableCell>{val.skill}</TableCell>
                           <TableCell>
-                            <Dialog name="Details" title={val.name} email={val.email} gender={val.gender} qualification={val.qualification} percentage={val.percentage} />
+                            <Dialog name="Details" type="student" title={val.name} email={val.email} gender={val.gender} qualification={val.qualification} percentage={val.percentage} details={val.description} skill={val.skill} />
                           </TableCell>
                         </TableRow>
                       )}

@@ -89,12 +89,12 @@ class CustomizedDialogDemo extends React.Component {
                     <div title={"Profile"} style={{ minWidth: "50%", maxWidth: "80%", overflow: "hidden", textOverflow: "ellipsis" }}>Profile</div>
                   </DialogTitle>
                   <DialogContent>
-                    <Typography gutterBottom>Name: {this.props.updation.name}</Typography>
-                    <Typography gutterBottom>Gender: {this.props.updation.gender}</Typography>
-                    <Typography gutterBottom>Qualification: {this.props.updation.qualification}</Typography>
-                    <Typography gutterBottom>Percentage: {this.props.updation.percentage}</Typography>
-                    <Typography gutterBottom>Skill: {this.props.updation.skill}</Typography>
-                    <Typography gutterBottom>Description:{this.props.updation.description}</Typography>
+                    <Typography gutterBottom><b>Name:</b> {this.props.updation.name}</Typography>
+                    <Typography gutterBottom><b>Gender:</b> {this.props.updation.gender}</Typography>
+                    <Typography gutterBottom><b>Qualification:</b> {this.props.updation.qualification}</Typography>
+                    <Typography gutterBottom><b>Percentage:</b> {this.props.updation.percentage}%</Typography>
+                    <Typography gutterBottom><b>Skill:</b> {this.props.updation.skill}</Typography>
+                    <Typography gutterBottom><b>Description:</b> {this.props.updation.description}</Typography>
                   </DialogContent>
                   <DialogActions>
                     <Button onClick={this.handleClose} color="primary">
@@ -119,11 +119,24 @@ class CustomizedDialogDemo extends React.Component {
               <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
                 <div title={this.props.title} style={{ minWidth: "50%", maxWidth: "80%", overflow: "hidden", textOverflow: "ellipsis" }}>{this.props.title}</div>
               </DialogTitle>
-              <DialogContent>
-                <Typography gutterBottom>
-                  {this.props.details}
-                </Typography>
-              </DialogContent>
+              {this.props.type === "student" ?
+                <DialogContent>
+                  <Typography gutterBottom><b>Email:</b> {this.props.email}</Typography>
+                  <Typography gutterBottom><b>Gender:</b> {this.props.gender}</Typography>
+                  <Typography gutterBottom><b>Skill:</b> {this.props.skill}</Typography>
+                  <Typography gutterBottom><b>Qualification:</b> {this.props.qualification}</Typography>
+                  <Typography gutterBottom><b>Percentage:</b> {this.props.percentage}</Typography>
+                  <Typography gutterBottom><b>Description:</b> {this.props.details}</Typography>
+                  
+                </DialogContent>
+                :
+                <DialogContent>
+                  <Typography gutterBottom><b>Email:</b> {this.props.email}</Typography>
+                  <Typography gutterBottom><b>Job:</b> {this.props.job}</Typography>
+                  <Typography gutterBottom><b>Qualification Required:</b> {this.props.qualificationReq}</Typography>
+                  <Typography gutterBottom><b>Salary:</b> {this.props.salary}</Typography>
+                  <Typography gutterBottom><b>Details:</b> {this.props.details}</Typography>
+                </DialogContent>}
               <DialogActions>
                 <Button onClick={this.handleClose} color="primary">
                   Close
