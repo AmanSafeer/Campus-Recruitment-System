@@ -17,12 +17,18 @@ const styles = (theme) => ({
     width: "100%"
   },
   screenChangeBtn: {
-    position: "absolute",
-    right: 10,
-    top: 10
+    margin: 8
   },
 });
 
+let count = 0
+
+const counter = () => {
+  count++
+}
+const resetCounter = () => {
+  count = 0
+}
 
 class Company extends Component {
   constructor() {
@@ -65,35 +71,36 @@ class Company extends Component {
     return (
       (this.props.profile && (this.props.profile.userType === "admin" || this.props.profile.userType === "student")) &&
       <div>
-        {this.props.profile.available ?
+        {this.state.changePage ?
           <div>
-            {this.state.changePage ?
+            <Header history={this.props.history} value={0} />
+            <h1>Companies</h1>
+            <div style={{ textAlign: "right" }}><Button className={classes.screenChangeBtn} color="primary" variant="contained" onClick={this.changePage}>View Vacancies</Button></div>
+            {this.props.profile.available ?
               <div>
-                <Header history={this.props.history} value={0} />
-                <h1>Companies<span><Button className={classes.screenChangeBtn} color="primary" variant="contained" onClick={this.changePage}>View Vacancies</Button></span></h1>
                 {this.props.companiesOnly.length > 0 ?
                   <div>
                     {this.props.profile.userType === "admin" ?
                       <Table className={classes.tableWidth}>
                         <TableHead >
                           <TableRow>
-                            <TableCell>Id</TableCell>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Email</TableCell>
-                            <TableCell>Action</TableCell>
+                            <TableCell style={{ textAlign: "center" }}>Id</TableCell>
+                            <TableCell style={{ textAlign: "center" }}>Name</TableCell>
+                            <TableCell style={{ textAlign: "center" }}>Email</TableCell>
+                            <TableCell style={{ textAlign: "center" }}>Action</TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
                           {this.props.companiesOnly.map((val, ind) =>
                             <TableRow key={ind}>
-                              <TableCell>{ind + 1}</TableCell>
-                              <TableCell>{val.name}</TableCell>
-                              <TableCell>{val.email}</TableCell>
+                              <TableCell style={{ textAlign: "center" }}>{ind + 1}</TableCell>
+                              <TableCell style={{ textAlign: "center" }}>{val.name}</TableCell>
+                              <TableCell style={{ textAlign: "center" }}>{val.email}</TableCell>
 
-                              <TableCell>
+                              <TableCell style={{ textAlign: "center" }}>
                                 {val.available ?
-                                  <Button style={{ width: "max-content" }} variant="contained" color="secondary" onClick={() => { }} >Block Company</Button> :
-                                  <Button style={{ backgroundColor: "green", width: "max-content" }} variant="contained" color="secondary" onClick={() => { }}>unblock Company</Button>}
+                                  <Button style={{ color: "red", borderColor: "red", borderWidth: 1, width: "max-content" }} variant="outlined" onClick={() => { this.block(val.id) }} >Block Company</Button> :
+                                  <Button style={{ color: "green", borderColor: "green", borderWidth: 1, width: "max-content" }} variant="outlined" onClick={() => { this.unblock(val.id) }}>unblock Company</Button>}
                               </TableCell>
                             </TableRow>
                           )}
@@ -101,19 +108,21 @@ class Company extends Component {
                       </Table>
                       :
                       <Table className={classes.tableWidth}>
-                      <TableHead >
+                        <TableHead >
                           <TableRow>
-                            <TableCell>Id</TableCell>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Email</TableCell>
+                            <TableCell style={{ textAlign: "center" }}>Id</TableCell>
+                            <TableCell style={{ textAlign: "center" }}>Name</TableCell>
+                            <TableCell style={{ textAlign: "center" }}>Email</TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
+                          {resetCounter()}
                           {this.props.companiesOnly.map((val, ind) =>
                             <TableRow key={ind}>
-                              <TableCell>{ind + 1}</TableCell>
-                              <TableCell>{val.name}</TableCell>
-                              <TableCell>{val.email}</TableCell>
+                              {counter()}
+                              <TableCell style={{ textAlign: "center" }}>{count}</TableCell>
+                              <TableCell style={{ textAlign: "center" }}>{val.name}</TableCell>
+                              <TableCell style={{ textAlign: "center" }}>{val.email}</TableCell>
 
                             </TableRow>
                           )}
@@ -126,40 +135,41 @@ class Company extends Component {
                 }
               </div>
               :
+              <p>Sorry, you have been blocked by the admin</p>}
+          </div>
+          :
+          <div>
+            <Header history={this.props.history} value={0} />
+            <h1>Vacancies</h1>
+            {this.props.profile.userType === "admin" && <div style={{ textAlign: "right" }}><Button className={classes.screenChangeBtn} color="primary" variant="contained" onClick={this.changePage}>View Companies</Button></div>}
+            {this.props.profile.available ?
               <div>
-                <Header history={this.props.history} value={0} />
-                <h1>Vacancies<span><Button className={classes.screenChangeBtn} color="primary" variant="contained" onClick={this.changePage}>View Companies</Button></span></h1>
                 {this.props.companies.length > 0 ?
                   <div style={{ overflow: "auto" }}>
                     {this.props.profile.userType === "admin" ?
                       <Table className={classes.tableWidth}>
                         <TableHead >
                           <TableRow>
-                            <TableCell>Id</TableCell>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Job</TableCell>
-                            <TableCell>Details</TableCell>
-                            <TableCell>Delete Job</TableCell>
-                            {/* <TableCell>Action</TableCell> */}
+                            <TableCell style={{ textAlign: "center" }}>Id</TableCell>
+                            <TableCell style={{ textAlign: "center" }}>Name</TableCell>
+                            <TableCell style={{ textAlign: "center" }}>Job</TableCell>
+                            <TableCell style={{ textAlign: "center" }}>Details</TableCell>
+                            <TableCell style={{ textAlign: "center" }}>Delete Job</TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
+                       
                           {this.props.companies.map((val, ind) =>
                             <TableRow key={ind}>
-                              <TableCell>{ind + 1}</TableCell>
-                              <TableCell>{val.name}</TableCell>
-                              <TableCell>{val.job}</TableCell>
-                              <TableCell>
+                              <TableCell style={{ textAlign: "center" }}>{ind + 1}</TableCell>
+                              <TableCell style={{ textAlign: "center" }}>{val.name}</TableCell>
+                              <TableCell style={{ textAlign: "center" }}>{val.job}</TableCell>
+                              <TableCell style={{ textAlign: "center" }}>
                                 <Dialog name="Details" title={val.name} email={val.email} job={val.job} qualificationReq={val.qualificationReq} salary={val.salary} details={val.jobDetails} />
                               </TableCell>
-                              <TableCell>
+                              <TableCell style={{ textAlign: "center" }}>
                                 <Button style={{ width: "max-content" }} variant="outlined" color="secondary" onClick={() => this.delete(val.id, val.key)}>Delete Vacancy</Button>
                               </TableCell>
-                              {/* <TableCell>
-                                {val.available ?
-                                  <Button style={{ width: "max-content" }} variant="contained" color="secondary" onClick={() => this.block(val.id)} >Block Company</Button> :
-                                  <Button style={{ backgroundColor: "green", width: "max-content" }} variant="contained" color="secondary" onClick={() => this.unblock(val.id)}>unblock Company</Button>}
-                              </TableCell> */}
                             </TableRow>
                           )}
                         </TableBody>
@@ -168,20 +178,22 @@ class Company extends Component {
                       <Table className={classes.tableWidth}>
                         <TableHead >
                           <TableRow>
-                            <TableCell>Id</TableCell>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Job</TableCell>
-                            <TableCell>Details</TableCell>
+                            <TableCell style={{ textAlign: "center" }}>Id</TableCell>
+                            <TableCell style={{ textAlign: "center" }}>Name</TableCell>
+                            <TableCell style={{ textAlign: "center" }}>Job</TableCell>
+                            <TableCell style={{ textAlign: "center" }}>Details</TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
+                        {resetCounter()}
                           {this.props.companies.map((val, ind) =>
                             val.available &&
                             <TableRow key={ind}>
-                              <TableCell>{ind + 1}</TableCell>
-                              <TableCell>{val.name}</TableCell>
-                              <TableCell>{val.job}</TableCell>
-                              <TableCell>
+                              {counter()}
+                              <TableCell style={{ textAlign: "center" }}>{count}</TableCell>
+                              <TableCell style={{ textAlign: "center" }}>{val.name}</TableCell>
+                              <TableCell style={{ textAlign: "center" }}>{val.job}</TableCell>
+                              <TableCell style={{ textAlign: "center" }}>
                                 <Dialog name="Details" title={val.name} email={val.email} job={val.job} qualificationReq={val.qualificationReq} salary={val.salary} details={val.jobDetails} />
                               </TableCell>
                             </TableRow>
@@ -192,12 +204,15 @@ class Company extends Component {
 
                   </div>
                   :
-                  <p>No vacancy available</p>}
-              </div>}
-          </div>
-          :
-          <p>Sorry, you have been blocked by the admin</p>
-        }
+                  <p>No vacancy available</p>
+                }
+              </div>
+              :
+              <p>Sorry, you have been blocked by the admin</p>}
+          </div>}
+
+
+
       </div>
     );
   }

@@ -13,11 +13,19 @@ import { signInUser, getStudents, blockUser, unblockUser, update, requestedData 
 import Dialog from '../components/dialogBox'
 
 const styles = (theme) => ({
-  tableWidth:{
-    width:"100%"
+  tableWidth: {
+    width: "100%"
   }
 });
 
+let count = 0
+
+const counter = () => {
+  count++
+}
+const resetCounter = () => {
+  count = 0
+}
 
 class Student extends Component {
 
@@ -54,38 +62,38 @@ class Student extends Component {
             {this.props.students.length > 0 ?
               <div style={{ overflow: "auto" }}>
                 {this.props.profile.userType === "admin" ?
-                  <Table className={classes.tableWidth}>
+                  <Table className={classes.tableWidth} >
                     <TableHead >
                       <TableRow>
-                        <TableCell>Id</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Skill</TableCell>
-                        <TableCell>Details</TableCell>
-                        <TableCell>Updation</TableCell>
-                        <TableCell>Action</TableCell>
+                        <TableCell style={{ textAlign: "center" }}>Id</TableCell>
+                        <TableCell style={{ textAlign: "center" }}>Name</TableCell>
+                        <TableCell style={{ textAlign: "center" }}>Skill</TableCell>
+                        <TableCell style={{ textAlign: "center" }}>Details</TableCell>
+                        <TableCell style={{ textAlign: "center" }}>Updation</TableCell>
+                        <TableCell style={{ textAlign: "center" }}>Action</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {this.props.students.map((val, ind) =>
                         <TableRow key={ind}>
-                          <TableCell>{ind + 1}</TableCell>
-                            <TableCell>{val.name}</TableCell>
-                          <TableCell>{val.skill}</TableCell>
-                          <TableCell>
+                          <TableCell style={{ textAlign: "center" }}>{ind + 1}</TableCell>
+                          <TableCell style={{ textAlign: "center" }}>{val.name}</TableCell>
+                          <TableCell style={{ textAlign: "center" }}>{val.skill}</TableCell>
+                          <TableCell style={{ textAlign: "center" }}>
                             <Dialog name="Details" type="student" title={val.name} email={val.email} gender={val.gender} qualification={val.qualification} percentage={val.percentage} details={val.description} skill={val.skill} />
                           </TableCell>
-                          <TableCell>
+                          <TableCell style={{ textAlign: "center" }}>
                             {val.request ?
                               <Dialog name="View Update" updation={this.props.updation} requestedData={() => this.props.requestedData(val.id)} action={() => this.update(val.id)} update={true} /> :
                               <Button variant="outlined" disabled >View Update</Button>
                             }
                           </TableCell>
-                          <TableCell>
+                          <TableCell style={{ textAlign: "center" }}>
                             {val.available ?
-                              <Button style={{ width: "max-content" }} variant="contained" color="secondary" onClick={() => this.block(val.id)}>Block Student</Button> :
-                              <Button style={{ backgroundColor: "green", width: "max-content" }} variant="contained" color="secondary" onClick={() => this.unblock(val.id)}>Unblock Student</Button>}
+                              <Button style={{ color: "red", borderColor: "red", borderWidth: 1, width: "max-content" }} variant="outlined" onClick={() => this.block(val.id)}>Block Student</Button> :
+                              <Button style={{ color: "green", borderColor: "green", borderWidth: 1, width: "max-content" }} variant="outlined" onClick={() => this.unblock(val.id)}>Unblock Student</Button>}
                           </TableCell>
-                          
+
                         </TableRow>
 
                       )}
@@ -96,20 +104,22 @@ class Student extends Component {
                   <Table className={classes.tableWidth}>
                     <TableHead >
                       <TableRow>
-                        <TableCell>Id</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Skill</TableCell>
-                        <TableCell>Detials</TableCell>
+                        <TableCell style={{ textAlign: "center" }}>Id</TableCell>
+                        <TableCell style={{ textAlign: "center" }}>Name</TableCell>
+                        <TableCell style={{ textAlign: "center" }}>Skill</TableCell>
+                        <TableCell style={{ textAlign: "center" }}>Detials</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
+                      {resetCounter()}
                       {this.props.students.map((val, ind) =>
                         val.available &&
                         <TableRow key={ind}>
-                          <TableCell>{ind + 1}</TableCell>
-                          <TableCell>{val.name}</TableCell>
-                          <TableCell>{val.skill}</TableCell>
-                          <TableCell>
+                          {counter()}
+                          <TableCell style={{ textAlign: "center" }}>{count}</TableCell>
+                          <TableCell style={{ textAlign: "center" }}>{val.name}</TableCell>
+                          <TableCell style={{ textAlign: "center" }}>{val.skill}</TableCell>
+                          <TableCell style={{ textAlign: "center" }}>
                             <Dialog name="Details" type="student" title={val.name} email={val.email} gender={val.gender} qualification={val.qualification} percentage={val.percentage} details={val.description} skill={val.skill} />
                           </TableCell>
                         </TableRow>

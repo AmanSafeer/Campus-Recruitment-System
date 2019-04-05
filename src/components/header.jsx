@@ -132,7 +132,6 @@ class Header extends Component {
       .then(() => {
         this.props.history.replace('/')
         this.props.signOutUser()
-        alert("Successfullly logged out")
       })
       .catch((err) => {
         alert(err)
@@ -163,9 +162,9 @@ class Header extends Component {
               {!this.state.screenBreak ?
                 <Tabs value={value} onChange={this.handleChange} classes={{ root: classes.tabsRoot, indicator: classes.tabsIndicator }} >
                   {this.props.profile.userType === "company" && <Tab disableRipple classes={{ root: classes.tabRoot, selected: classes.tabSelected }} label="Post Job" onClick={() => this.pageChange('/job')} />}
-                  {this.props.profile.userType !== "company" && <Tab disableRipple classes={{ root: classes.tabRoot, selected: classes.tabSelected }} label="View Companies" onClick={() => this.pageChange('/companies')} />}
+                  {this.props.profile.userType !== "company" && <Tab disableRipple classes={{ root: classes.tabRoot, selected: classes.tabSelected }} label="Vacancies" onClick={() => this.pageChange('/companies')} />}
                   {this.props.profile.userType === "student" && <Tab disableRipple classes={{ root: classes.tabRoot, selected: classes.tabSelected }} label="Profile" onClick={() => this.pageChange('/profile')} />}
-                  {this.props.profile.userType !== "student" && <Tab disableRipple classes={{ root: classes.tabRoot, selected: classes.tabSelected }} label="View Students " onClick={() => this.pageChange('/students')} />}
+                  {this.props.profile.userType !== "student" && <Tab disableRipple classes={{ root: classes.tabRoot, selected: classes.tabSelected }} label="Students " onClick={() => this.pageChange('/students')} />}
 
                   <Button className={classes.signOut} variant="contained" color="secondary" margin="normal" onClick={this.signOut}>Logout</Button>
                   <span className={classes.user}>{this.props.profile.name}<br />({this.props.profile.userType})</span>

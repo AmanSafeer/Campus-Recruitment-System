@@ -10,10 +10,22 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Header from '../components/header'
 import blue from '@material-ui/core/colors/blue';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 import * as firebase from 'firebase'
-import { signInUser, postJob } from '../store/action/action'
+import { signInUser, postJob, postedJobs } from '../store/action/action'
+import Dialog from '../components/dialogBox'
 
 const styles = (theme) => ({
+  tableWidth: {
+    width: "100%"
+  },
+  screenChangeBtn: {
+    margin: 8,
+  },
   inputField: {
     width: "80%",
   },
@@ -44,7 +56,8 @@ class Job extends Component {
       job: '',
       qualificationReq: '',
       salary: '',
-      jobDetails: ''
+      jobDetails: '',
+      changePage: true
     }
   }
   changeHandler = (event) => {
@@ -52,6 +65,9 @@ class Job extends Component {
       [event.target.name]: event.target.value,
       error: ''
     });
+  }
+  changePage = () => {
+    this.setState({ changePage: !this.state.changePage })
   }
   postJob = (event) => {
     event.preventDefault()
@@ -70,6 +86,8 @@ class Job extends Component {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.props.signInUser(user, this.props.history);
+        this.props.postedJobs(user.uid)
+
       }
     })
   }
@@ -78,44 +96,87 @@ class Job extends Component {
     return (
       (this.props.profile && this.props.profile.userType === "company") &&
       <div>
-        <Header history={this.props.history} value={0} />
-        <h1>Post Job</h1>
-        {this.props.profile.available ?
+        {this.state.changePage ?
           <div>
-            <form onSubmit={this.postJob}>
-              <FormControl required className={classes.inputField}>
-                <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused, }}>Job</InputLabel>
-                <Select input={<Input classes={{ underline: classes.cssUnderline, }} />} style={{ textAlign: 'left' }} value={this.state.job} onChange={this.changeHandler} inputProps={{ name: 'job' }}>
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value="Software Engenieer">Software Engineer</MenuItem>
-                  <MenuItem value="Web developer">Web developer</MenuItem>
-                  <MenuItem value="Mobile App Developer">Mobile App Developer</MenuItem>
-                  <MenuItem value="Graphic Designer">Graphic Designer</MenuItem>
-                </Select>
-              </FormControl><br />
+            <Header history={this.props.history} value={0} />
+            <h1>Post Vacancy</h1>
+            <div style={{ textAlign: "right" }}><Button className={classes.screenChangeBtn} color="primary" variant="contained" onClick={this.changePage}>View Posted Vacancies</Button></div>
+            {this.props.profile.available ?
+              <div>
+                <form style={{ overflow: "hidden" }} onSubmit={this.postJob}>
+                  <FormControl required className={classes.inputField}>
+                    <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused, }}>Job</InputLabel>
+                    <Select input={<Input classes={{ underline: classes.cssUnderline, }} />} style={{ textAlign: 'left' }} value={this.state.job} onChange={this.changeHandler} inputProps={{ name: 'job' }}>
+                      <MenuItem value="">
+                        <em>None</em>
+                      </MenuItem>
+                      <MenuItem value="Software Engenieer">Software Engineer</MenuItem>
+                      <MenuItem value="Web developer">Web developer</MenuItem>
+                      <MenuItem value="Mobile App Developer">Mobile App Developer</MenuItem>
+                      <MenuItem value="Graphic Designer">Graphic Designer</MenuItem>
+                    </Select>
+                  </FormControl><br />
 
-              <FormControl required className={classes.inputField}>
-                <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused, }}>Qualification Required</InputLabel>
-                <Select input={<Input classes={{ underline: classes.cssUnderline, }} />} style={{ textAlign: 'left' }} value={this.state.qualificationReq} onChange={this.changeHandler} inputProps={{ name: 'qualificationReq' }}>
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value="Matriculation">Matriculation</MenuItem>
-                  <MenuItem value="Intermidiate">Intermediate</MenuItem>
-                  <MenuItem value="Gradutaion">Gradutaion</MenuItem>
-                  <MenuItem value="Master">Master</MenuItem>
-                  <MenuItem value="Master">Phd</MenuItem>
-                </Select>
-              </FormControl><br />
+                  <FormControl required className={classes.inputField}>
+                    <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused, }}>Qualification Required</InputLabel>
+                    <Select input={<Input classes={{ underline: classes.cssUnderline, }} />} style={{ textAlign: 'left' }} value={this.state.qualificationReq} onChange={this.changeHandler} inputProps={{ name: 'qualificationReq' }}>
+                      <MenuItem value="">
+                        <em>None</em>
+                      </MenuItem>
+                      <MenuItem value="Matriculation">Matriculation</MenuItem>
+                      <MenuItem value="Intermidiate">Intermediate</MenuItem>
+                      <MenuItem value="Gradutaion">Gradutaion</MenuItem>
+                      <MenuItem value="Master">Master</MenuItem>
+                      <MenuItem value="Master">Phd</MenuItem>
+                    </Select>
+                  </FormControl><br />
 
-              <TextField className={classes.inputField} label="Salary" margin="normal" type="text" name="salary" value={this.state.salary} onChange={this.changeHandler} inputProps={{ maxLength:30 }} required /><br />
-              <TextField className={classes.inputField} label="Job Details" margin="normal" type="text" name="jobDetails" value={this.state.jobDetails} onChange={this.changeHandler} multiline rowsMax="10" required /><br />
-              <Button variant="contained" color="primary" type="submit" value="submit">Post</Button>
-            </form>
-          </div> :
-          <p>Sorry, you have been blocked by the admin</p>}
+                  <TextField className={classes.inputField} label="Salary" margin="normal" type="text" name="salary" value={this.state.salary} onChange={this.changeHandler} inputProps={{ maxLength: 40 }} required /><br />
+                  <TextField className={classes.inputField} label="Job Details" margin="normal" type="text" name="jobDetails" value={this.state.jobDetails} onChange={this.changeHandler} multiline rowsMax="10" required /><br />
+                  <Button variant="contained" color="primary" type="submit" value="submit">Post</Button>
+                </form>
+              </div> :
+              <p>Sorry, you have been blocked by the admin</p>}
+          </div>
+          :
+          <div>
+            <Header history={this.props.history} value={0} />
+            <h1>Post Vacancy</h1>
+            <div style={{ textAlign: "right" }}><Button className={classes.screenChangeBtn} color="primary" variant="contained" onClick={this.changePage}>Post Vacancy</Button></div>
+            {this.props.profile.available ?
+              <div>
+                {this.props.jobs.length > 0 ?
+                  <div style={{ overflow: "auto" }}>
+                    <Table className={classes.tableWidth}>
+                      <TableHead >
+                        <TableRow>
+                          <TableCell style={{textAlign:"center"}}>Id</TableCell>
+                          <TableCell style={{textAlign:"center"}}>Name</TableCell>
+                          <TableCell style={{textAlign:"center"}}>Job</TableCell>
+                          <TableCell style={{textAlign:"center"}}>Details</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {this.props.jobs.map((val, ind) =>
+                          <TableRow key={ind}>
+                            <TableCell style={{textAlign:"center"}}>{ind + 1}</TableCell>
+                            <TableCell style={{textAlign:"center"}}>{val.name}</TableCell>
+                            <TableCell style={{textAlign:"center"}}>{val.job}</TableCell>
+                            <TableCell style={{textAlign:"center"}}>
+                              <Dialog name="Details" title={val.name} email={val.email} job={val.job} qualificationReq={val.qualificationReq} salary={val.salary} details={val.jobDetails} />
+                            </TableCell>
+                          </TableRow>
+                        )}
+                      </TableBody>
+                    </Table>
+                  </div> :
+                  <p>No Vacancies</p>}
+              </div>
+              :
+              <p>Sorry, you have been blocked by the admin</p>
+            }
+          </div>
+        }
       </div>
     );
   }
@@ -124,12 +185,14 @@ class Job extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.root.profile,
-    userId: state.root.userId
+    userId: state.root.userId,
+    jobs: state.root.postedJobs
   }
 }
 function mapDispatchToProps(dispatch) {
   return {
     postJob: (obj, uid) => dispatch(postJob(obj, uid)),
+    postedJobs: (uid) => dispatch(postedJobs(uid)),
     signInUser: (user, history) => dispatch(signInUser(user, history))
   }
 }

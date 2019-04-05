@@ -10,6 +10,7 @@ const initialState = {
     students: [],
     companies: [],
     companiesOnly:[],
+    postedJobs:[],
 };
 
 export default (state = initialState, action) => {
@@ -58,6 +59,13 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 companiesOnly: action.payload
+            }
+        }
+        case actionTypes.POSTEDJOBS: {
+            return {
+                ...state,
+                postedJobs: action.payload
+
             }
         }
         case actionTypes.REQUEST: {

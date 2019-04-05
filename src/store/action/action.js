@@ -64,7 +64,24 @@ export function postJob(obj, uid) {
                 obj.id = data.id
                 obj.available = true
                 ref.child(uid).child("jobs").push(obj)
+                postedJobs(uid)(dispatch)
             }
+        })
+    }
+}
+export function postedJobs(uid) {
+    return (dispatch) => {
+        ref.child(uid).child("jobs").once("value", snap => {
+            const data = snap.val()
+            const jobs = []
+           if(data){
+               for(var key in data){
+                  const job = data[key]
+                  jobs.push(job) 
+                }
+            }
+            console.log(jobs)
+            dispatch({ type: actionTypes.POSTEDJOBS, payload: jobs })
         })
     }
 }
@@ -119,7 +136,6 @@ export function getCompaniesOnly() {
                     const user = data[key]
                     if (user.userType === "company") {
                         userArr.push(user)
-                       console.log(user)
                     } 
                 }
             }
