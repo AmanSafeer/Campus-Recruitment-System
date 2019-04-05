@@ -161,7 +161,7 @@ class Header extends Component {
             <div>
               {!this.state.screenBreak ?
                 <Tabs value={value} onChange={this.handleChange} classes={{ root: classes.tabsRoot, indicator: classes.tabsIndicator }} >
-                  {this.props.profile.userType === "company" && <Tab disableRipple classes={{ root: classes.tabRoot, selected: classes.tabSelected }} label="Post Job" onClick={() => this.pageChange('/job')} />}
+                  {this.props.profile.userType === "company" && <Tab disableRipple classes={{ root: classes.tabRoot, selected: classes.tabSelected }} label="Post Vacancy" onClick={() => this.pageChange('/job')} />}
                   {this.props.profile.userType !== "company" && <Tab disableRipple classes={{ root: classes.tabRoot, selected: classes.tabSelected }} label="Vacancies" onClick={() => this.pageChange('/companies')} />}
                   {this.props.profile.userType === "student" && <Tab disableRipple classes={{ root: classes.tabRoot, selected: classes.tabSelected }} label="Profile" onClick={() => this.pageChange('/profile')} />}
                   {this.props.profile.userType !== "student" && <Tab disableRipple classes={{ root: classes.tabRoot, selected: classes.tabSelected }} label="Students " onClick={() => this.pageChange('/students')} />}

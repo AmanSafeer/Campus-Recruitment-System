@@ -181,7 +181,7 @@ class Sign extends Component {
                 </RadioGroup>
               </FormControl><br />
               <TextField className={classes.inputField} label="Name" margin="normal" type="text" name="name" value={this.state.name} onChange={this.changeHandler} inputProps={{ maxLength: 15 }} required /><br />
-              <TextField className={classes.inputField} label="Email" margin="normal" type="email" name="email" value={this.state.email} onChange={this.changeHandler} inputProps={{ maxLength: 40 }} required /><br />
+              <TextField className={classes.inputField} label="Email" margin="normal" type="email" name="email" value={this.state.email} onChange={this.changeHandler} inputProps={{ maxLength: 50 }} required /><br />
               <TextField className={classes.inputField} label="Password" margin="normal" type="password" name="password" value={this.state.password} onChange={this.changeHandler} required /><br />
               {(this.state.userType === "student") &&
                 <span>

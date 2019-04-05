@@ -141,7 +141,7 @@ class Job extends Component {
           :
           <div>
             <Header history={this.props.history} value={0} />
-            <h1>Post Vacancy</h1>
+            <h1>Posted Vacancies</h1>
             <div style={{ textAlign: "right" }}><Button className={classes.screenChangeBtn} color="primary" variant="contained" onClick={this.changePage}>Post Vacancy</Button></div>
             {this.props.profile.available ?
               <div>

@@ -154,7 +154,7 @@ class Company extends Component {
                             <TableCell style={{ textAlign: "center" }}>Name</TableCell>
                             <TableCell style={{ textAlign: "center" }}>Job</TableCell>
                             <TableCell style={{ textAlign: "center" }}>Details</TableCell>
-                            <TableCell style={{ textAlign: "center" }}>Delete Job</TableCell>
+                            <TableCell style={{ textAlign: "center" }}>Delete Vacancy</TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
@@ -168,7 +168,7 @@ class Company extends Component {
                                 <Dialog name="Details" title={val.name} email={val.email} job={val.job} qualificationReq={val.qualificationReq} salary={val.salary} details={val.jobDetails} />
                               </TableCell>
                               <TableCell style={{ textAlign: "center" }}>
-                                <Button style={{ width: "max-content" }} variant="outlined" color="secondary" onClick={() => this.delete(val.id, val.key)}>Delete Vacancy</Button>
+                                <Button style={{ width: "max-content" }} variant="outlined" color="secondary" onClick={() => this.delete(val.id, val.key)}>Delete</Button>
                               </TableCell>
                             </TableRow>
                           )}

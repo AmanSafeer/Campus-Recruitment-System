@@ -32,7 +32,7 @@ function RenderPropsMenu(props) {
             </Button>
             <Menu id="render-props-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
               <MenuItem style={{ background: "#303f9f", fontSize: "14px", color: "white", fontWeight: "bold" }}>{props.profile.name} ({props.profile.userType})</MenuItem>
-              {props.profile.userType === "company" && <MenuItem onClick={() => handleClose('/job')}>Post Job</MenuItem>}
+              {props.profile.userType === "company" && <MenuItem onClick={() => handleClose('/job')}>Post Vacancy</MenuItem>}
               {props.profile.userType !== "company" && <MenuItem onClick={() => handleClose('/companies')}>Vacancies </MenuItem>}
               {props.profile.userType === "student" && <MenuItem onClick={() => handleClose('/profile')}>Profile</MenuItem>}
               {props.profile.userType !== "student" && <MenuItem onClick={() => handleClose('/students')}>Students </MenuItem>}
