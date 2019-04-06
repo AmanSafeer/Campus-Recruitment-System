@@ -152,13 +152,13 @@ class Header extends Component {
     return (
       <header className={classes.header}>
         <AppBar position="static" color="default" className={this.props.menu ? classes.appBar : classes.appBarLogin}>
-          <Toolbar>
+          <Toolbar style={{flex:10}}>
             <div className="topHeading">
               <span className={classes.heading}>Campus Recruitment System</span>
             </div>
           </Toolbar>
           {this.props.menu &&
-            <div>
+            <div  style={{flex:1}}>
               {!this.state.screenBreak ?
                 <Tabs value={value} onChange={this.handleChange} classes={{ root: classes.tabsRoot, indicator: classes.tabsIndicator }} >
                   {this.props.profile.userType === "company" && <Tab disableRipple classes={{ root: classes.tabRoot, selected: classes.tabSelected }} label="Post Vacancy" onClick={() => this.pageChange('/job')} />}

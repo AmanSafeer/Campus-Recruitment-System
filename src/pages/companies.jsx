@@ -79,7 +79,7 @@ class Company extends Component {
             {this.props.profile.available ?
               <div>
                 {this.props.companiesOnly.length > 0 ?
-                  <div>
+                  <div style={{ overflow: "auto" }}>
                     {this.props.profile.userType === "admin" ?
                       <Table className={classes.tableWidth}>
                         <TableHead >
