@@ -39,7 +39,7 @@ const styles = (theme) => ({
   heading: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "white"
+    color: "white",
   },
   signOut: {
     marginRight: 5
@@ -153,7 +153,7 @@ class Header extends Component {
       <header className={classes.header}>
         <AppBar position="static" color="default" className={this.props.menu ? classes.appBar : classes.appBarLogin}>
           <Toolbar style={{flex:10}}>
-            <div className="topHeading">
+            <div style={{textAlign:"left"}}>
               <span className={classes.heading}>Campus Recruitment System</span>
             </div>
           </Toolbar>

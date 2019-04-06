@@ -94,7 +94,6 @@ class Sign extends Component {
     event.preventDefault()
     const { name, email, password, userType, qualification, percentage, skill, description, gender, available, request } = this.state;
 
-    this.props.signInLoaderOpen()
     var user;
     if (userType === "student") {
       if (percentage > 100) {
@@ -109,11 +108,14 @@ class Sign extends Component {
         })
         return;
       }
-      user = { name, email, userType, qualification, percentage, skill, description, gender, available, request };
+      else {
+        user = { name, email, userType, qualification, percentage, skill, description, gender, available, request };
+      }
     }
     else {
       user = { name, email, userType, available };
     }
+    this.props.signInLoaderOpen()
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(res => {
         user.id = res.user.uid
